@@ -1,0 +1,53 @@
+.console {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #0f1117e7;
+  color: #d4d4d4;
+  font-family: monospace;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.consoleHeader {
+  padding: 10px 14px;
+  border-bottom: 1px solid #222;
+  color: #888;
+  font-size: 14px;
+}
+
+.consoleBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+.consoleLine {
+  padding: 4px 0;
+  white-space: pre-wrap;
+}
+
+.consoleLine.log {
+  color: #d4d4d4;
+}
+
+.consoleLine.warn {
+  color: #facc15;
+}
+
+.consoleLine.error {
+  color: #ef4444;
+}
+
+.consoleEmpty {
+  color: #666;
+  font-style: italic;
+}
+
+@media (max-width: 525px) {
+  .console {
+        height: 80%;
+        width: 100%;
+    }
+}

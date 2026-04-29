@@ -1,0 +1,13 @@
+.codeEditorWindow{
+    height: 90%;
+    width: 65%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+@media (max-width: 525px) {
+  .codeEditorWindow{
+        height: 70%;
+        width: 97%;
+    }
+}
