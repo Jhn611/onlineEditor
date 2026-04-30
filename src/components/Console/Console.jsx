@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import './Console.css'
 
 
 function Console({ logs }) {
+  useEffect(() => {console.log(logs)}, [logs])
   return (
     <div className="console">
       <div className="consoleHeader">Console</div>

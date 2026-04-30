@@ -50,7 +50,15 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
 
     iframeRef.current = iframe;
     document.body.appendChild(iframe);
-
+    const handleObject = (obj, level) => {
+      let thisLevelString = ''
+      level 
+      for(let key in obj){
+        if(typeof(obj[key]) == 'object') return thisLevelString + '\n' + level + `${key}: {` + handleObject(obj[key], level + '  ') + '}'
+        else thisLevelString += '\n' + level + `${key}: ${obj[key]}`
+      }
+      return thisLevelString
+    }
     const handleMessage = (event) => {
       if (!event.data || event.data.source !== "sandbox") return;
 
@@ -58,10 +66,16 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
         onFinish?.();
         return;
       }
-
+      console.log(event.data);
       onLog?.({
         type: event.data.level,
-        text: event.data.args.map(String).join(" "),
+        text: event.data.args.map((i) => {
+          if(typeof(i) == 'object'){
+            return '{' + handleObject(i, '') + '}'
+          }else{
+            return String(i)
+          }
+        }).join(" "),
       });
     };
 
