@@ -4,6 +4,7 @@ import CodeEditor from "./components/Editor/CodeEditor";
 import Sandbox from "./components/IFrame/Sandbox";
 import Button from "./components/Button/Button";
 import Console from "./components/Console/Console";
+import icon from "./assets/imgs/icon.png";
 
 function App() {
   const [code, setCode] = useState(localStorage.getItem("code") || "");
@@ -18,7 +19,12 @@ function App() {
   }, [logs, isRunning]);
   return (
     <>
-      <header></header>
+      <header>
+        <img src={icon} alt="" />
+        <div className="headerText">
+          <h1>JavaScript online Editor</h1>
+        </div>
+      </header>
       <main>
         <CodeEditor code={code} setCode={setCode} />
         <div className="consoleBlock">
@@ -39,7 +45,13 @@ function App() {
         onFinish={() => setIsRunning(false)}
       />
 
-      <footer></footer>
+      <footer>
+        <div className="footerText">
+          <p>© 2026 Jhn</p>
+          <p>JS online Editor v0.2</p>
+          <p><span>Lines now: {code.split("\n").length}</span></p>
+        </div>
+      </footer>
     </>
   );
 }

@@ -21,7 +21,7 @@ function CodeEditor({code, setCode}) {
           ],
           colors: {
             "editor.foreground": "#c0ddf1ff",
-            "editor.background": "#1e1e1ee2",
+            "editor.background": "#1e1e1ed6",
             "editorCursor.foreground": "#b9f8b9ff",
             // "editor.lineHighlightBackground": "#f5f5f5",
             // "editor.selectionBackground": "#cce8ff",
