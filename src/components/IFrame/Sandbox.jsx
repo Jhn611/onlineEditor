@@ -60,6 +60,7 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
       return thisLevelString
     }
     const handleMessage = (event) => {
+      if (event.source !== iframe.contentWindow) return;
       if (!event.data || event.data.source !== "sandbox") return;
 
       if (event.data.level === "finish") {
