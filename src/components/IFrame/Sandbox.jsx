@@ -52,8 +52,8 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
     document.body.appendChild(iframe);
     const handleObject = (obj, level) => {
       let thisLevelString = ''
-      level 
-      for(let key in obj){
+      for(let key in obj){  
+        if(Array.isArray(obj[key])) return thisLevelString + '\n' + level + `${key}: [` + handleObject(obj[key], level + '  ') + ']'
         if(typeof(obj[key]) == 'object') return thisLevelString + '\n' + level + `${key}: {` + handleObject(obj[key], level + '  ') + '}'
         else thisLevelString += '\n' + level + `${key}: ${obj[key]}`
       }
@@ -70,7 +70,10 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
       onLog?.({
         type: event.data.level,
         text: event.data.args.map((i) => {
-          if(typeof(i) == 'object'){
+          if(Array.isArray(i)){
+            return '[' + handleObject(i, '') + ']'
+          }
+          else if(typeof(i) == 'object'){
             return '{' + handleObject(i, '') + '}'
           }else{
             return String(i)

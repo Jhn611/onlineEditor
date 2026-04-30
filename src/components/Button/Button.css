@@ -13,33 +13,35 @@
 }
 
 .runButton{
-  border: 1px solid #e7eeff;
-  background-color: #2c3039;
-   color: #a4ca99;
+  /* border: 1px solid #e7eeff; */
+  background-color: #6d8467;
+   color: #f4f5f4;
  
 }
 
 .clearButton{
-  border: 1px solid #e7eeff;
-  background-color: #2c3039;
-   color: #c67c7c;
+  /* border: 1px solid #e7eeff; */
+  background-color: #815757;
+   color: #f4f5f4;
 
-}
-
-.customButton:hover {
-  background-color: #262931;
 }
 
 .runButton:hover{
-   color: #80a176;
+   color: #ffffff;
+   background-color: #546e4e;
 }
 
 .clearButton:hover{
-  color: #a17676;
+   color: #ffffff;
+  background-color: #674040;
 }
 
-.customButton:active {
-  background: #111827;
+.runButton:active {
+  background-color: #3b5734;
+}
+
+.clearButton:active {
+   background-color: #4d2626;
 }
 
 .customButton:disabled {

@@ -4,7 +4,7 @@ import CodeEditor from "./components/Editor/CodeEditor";
 import Sandbox from "./components/IFrame/Sandbox";
 import Button from "./components/Button/Button";
 import Console from "./components/Console/Console";
-import icon from "./assets/imgs/icon.png";
+import logo from "./assets/imgs/logo.PNG";
 
 function App() {
   const [code, setCode] = useState(localStorage.getItem("code") || "");
@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <header>
-        <img src={icon} alt="" />
+        <img src={logo} alt="" />
         <div className="headerText">
           <h1>JavaScript online Editor</h1>
         </div>

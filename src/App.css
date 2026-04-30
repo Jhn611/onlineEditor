@@ -9,10 +9,10 @@ header{
   justify-content: start;
   gap: 10px;
 }
-.header img{
-  width: 50px;
-  height: 50px;
-}
+header img{
+    width: 43px;
+    height: 42.5px;
+  }
 .headerText{
   height: 90%;
   display: flex;
@@ -87,15 +87,18 @@ footer{
 
 @media (max-width: 525px) {
   main{
+    padding: 20px 0 0 0;
     height: 120vh;
     flex-direction: column;
+    justify-content: start;
+    gap: 20px;
   }
   .consoleBlock{
     width: 97%;
     height: 25%;
   }
-  .header img{
-    width: 40px;
-    height: 40px;
+  header img{
+    width: 35px;
+    height: 34.6px;
   }
 }

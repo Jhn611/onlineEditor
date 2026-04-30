@@ -39,6 +39,7 @@ function CodeEditor({code, setCode}) {
         fontSize: remToPx(1.125),
         minimap: { enabled: false },
         scrollBeyondLastLine: false,
+        fixedOverflowWidgets: true,
         automaticLayout: true,
         tabSize: 2,
         wordWrap: "on",
