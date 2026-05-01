@@ -49,7 +49,14 @@
 
 @media (max-width: 525px) {
   .console {
-        height: 75%;
-        width: 100%;
-    }
+    height: calc(100% - 76px);
+    width: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
+
+  .consoleBody {
+    overflow: visible;
+  }
 }

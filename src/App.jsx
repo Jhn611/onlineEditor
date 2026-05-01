@@ -31,6 +31,24 @@ function App() {
     console.log(logs, isRunning)
   }, [logs, isRunning]);
 
+  const editorPanel = (
+    <div className="panelInner">
+      <CodeEditor code={code} setCode={setCode} />
+    </div>
+  );
+
+  const consolePanel = (
+    <div className="panelInner">
+      <div className="consoleBlock">
+        <Console logs={logs} />
+        <div className="consoleBlockButtons">
+          <Button onClick={() => setIsRunning(true)} btnStyle={"runButton"}>ЗАПУСТИТЬ</Button>
+          <Button onClick={() => setLogs([])} btnStyle={"clearButton"}>ОЧИСТИТЬ</Button>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <header>
@@ -40,31 +58,24 @@ function App() {
         </div>
       </header>
       <main>
-        <Group
-          orientation={isMobile ? "vertical" : "horizontal"}
-          disabled={isMobile}
-          className="panels"
-        >
-          <Panel defaultSize={isMobile ? 40 : 60} minSize={25} disabled={isMobile}>
-            <div className="panelInner">
-              <CodeEditor code={code} setCode={setCode} />
-            </div>
-          </Panel>
+        {isMobile ? (
+          <div className="mobilePanels">
+            {editorPanel}
+            {consolePanel}
+          </div>
+        ) : (
+          <Group orientation="horizontal" className="panels">
+            <Panel defaultSize={60} minSize={25}>
+              {editorPanel}
+            </Panel>
 
-          {!isMobile && <Separator className="resizeHandle" />}
+            <Separator className="resizeHandle" />
 
-          <Panel defaultSize={isMobile ? 30 : 20} minSize={20} disabled={isMobile}>
-            <div className="panelInner">
-              <div className="consoleBlock">
-                <Console logs={logs} />
-                <div className="consoleBlockButtons">
-                  <Button onClick={() => setIsRunning(true)} btnStyle={"runButton"}>ЗАПУСТИТЬ</Button>
-                  <Button onClick={() => setLogs([])} btnStyle={"clearButton"}>ОЧИСТИТЬ</Button>
-                </div>
-              </div>
-            </div>
-          </Panel>
-        </Group>
+            <Panel defaultSize={20} minSize={20}>
+              {consolePanel}
+            </Panel>
+          </Group>
+        )}
       </main>
 
       <Sandbox
@@ -79,7 +90,7 @@ function App() {
       <footer>
         <div className="footerText">
           <p>© 2026 Jhn</p>
-          <p>JS online Editor v0.412</p>
+          <p>JS online Editor v0.413</p>
           <p><span>Lines now: {code.split("\n").length}</span></p>
         </div>
       </footer>

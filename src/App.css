@@ -85,6 +85,10 @@ footer{
   height: 100%;
 }
 
+.mobilePanels {
+  display: none;
+}
+
 .panelInner {
   height: 100%;
   overflow: hidden;
@@ -134,17 +138,31 @@ footer{
   main{
     padding: 0 0 0 0;
     height: 126vh;
+  }
+  .panels {
+    display: none;
+  }
+  .mobilePanels {
+    height: 100%;
+    display: flex;
     flex-direction: column;
-    justify-content: start;
-    gap: 20px;
   }
   .panelInner{
+    min-height: 0;
+    overflow: visible;
+    margin: 0 0 10px 0;
+  }
+  .mobilePanels .panelInner:first-child {
+    height: 50%;
     padding: 20px 0 0 0;
-    height: 94%;
+  }
+  .mobilePanels .panelInner:last-child {
+    height: 42%;
+    padding: 0;
   }
   .consoleBlock{
     width: 97%;
-    height: 88%;
+    height: 100%;
   }
   header img{
     width: 36px;

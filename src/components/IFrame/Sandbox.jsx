@@ -43,7 +43,7 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
                 send("error", [error.message]);
               }
             });
-          <\/script>
+          </script>
         </body>
       </html>
     `;
