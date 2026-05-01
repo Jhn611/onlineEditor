@@ -133,16 +133,18 @@ footer{
 
   main{
     padding: 0 0 0 0;
-    height: 120vh;
+    height: 126vh;
     flex-direction: column;
     justify-content: start;
     gap: 20px;
   }
   .panelInner{
     padding: 20px 0 0 0;
+    height: 94%;
   }
   .consoleBlock{
     width: 97%;
+    height: 88%;
   }
   header img{
     width: 35px;

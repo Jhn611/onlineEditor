@@ -11,13 +11,26 @@ function App() {
   const [code, setCode] = useState(localStorage.getItem("code") || "");
   const [logs, setLogs] = useState([]);
   const [isRunning, setIsRunning] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 525);
 
   useEffect(() => {
     localStorage.setItem("code", code);
   }, [code]);
- useEffect(() => {
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 525px)");
+    const handleChange = () => setIsMobile(mediaQuery.matches);
+
+    handleChange();
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  useEffect(() => {
     console.log(logs, isRunning)
   }, [logs, isRunning]);
+
   return (
     <>
       <header>
@@ -27,16 +40,20 @@ function App() {
         </div>
       </header>
       <main>
-        <Group orientation={window.innerWidth > 525 ? "horizontal" : "vertical"} className="panels">
-          <Panel defaultSize={window.innerWidth > 525 ? 60 : 40} minSize={25}>
+        <Group
+          orientation={isMobile ? "vertical" : "horizontal"}
+          disabled={isMobile}
+          className="panels"
+        >
+          <Panel defaultSize={isMobile ? 40 : 60} minSize={25} disabled={isMobile}>
             <div className="panelInner">
               <CodeEditor code={code} setCode={setCode} />
             </div>
           </Panel>
 
-          <Separator className="resizeHandle" />
+          <Separator className="resizeHandle" disabled={isMobile} />
 
-          <Panel defaultSize={window.innerWidth > 525 ? 20 : 20} minSize={20}>
+          <Panel defaultSize={isMobile ? 30 : 20} minSize={20} disabled={isMobile}>
             <div className="panelInner">
               <div className="consoleBlock">
                 <Console logs={logs} />
@@ -62,7 +79,7 @@ function App() {
       <footer>
         <div className="footerText">
           <p>© 2026 Jhn</p>
-          <p>JS online Editor v0.4</p>
+          <p>JS online Editor v0.41</p>
           <p><span>Lines now: {code.split("\n").length}</span></p>
         </div>
       </footer>
