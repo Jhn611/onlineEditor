@@ -51,7 +51,7 @@ function App() {
             </div>
           </Panel>
 
-          <Separator className="resizeHandle" disabled={isMobile} />
+          {!isMobile && <Separator className="resizeHandle" />}
 
           <Panel defaultSize={isMobile ? 30 : 20} minSize={20} disabled={isMobile}>
             <div className="panelInner">
@@ -79,7 +79,7 @@ function App() {
       <footer>
         <div className="footerText">
           <p>© 2026 Jhn</p>
-          <p>JS online Editor v0.411</p>
+          <p>JS online Editor v0.412</p>
           <p><span>Lines now: {code.split("\n").length}</span></p>
         </div>
       </footer>
