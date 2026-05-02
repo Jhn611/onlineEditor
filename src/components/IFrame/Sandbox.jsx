@@ -29,7 +29,10 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
             console.warn = (...args) => send("warn", args);
             console.error = (...args) => send("error", args);
 
+            let hasError = false;
             window.onerror = (message) => {
+              if (hasError) return;
+              hasError = true;
               send("error", [message]);
             };
 
@@ -39,9 +42,9 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
               try {
                 new Function(event.data.code)();
                 send("finish", ["Execution finished"]);
-              } catch (error) {
-                send("error", [error.message]);
-              }
+              } catch (error) {    
+                send("error", [error.message]);       
+                send("finish", ["Execution finished"]);}
             });
           </script>
         </body>

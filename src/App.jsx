@@ -44,7 +44,7 @@ function App() {
         <div className="consoleBlockButtons">
           <Button onClick={() => setIsRunning(true)} btnStyle={"runButton"}>ЗАПУСТИТЬ</Button>
           <Button onClick={() => setLogs([])} btnStyle={"clearButton"}>ОЧИСТИТЬ</Button>
-          <Button onClick={() => setCode("")} btnStyle={"clearCodeButton"}>СТЕРЕТЬ КОД</Button>
+          <Button onClick={() => { if (window.confirm("Вы уверены, что хотите стереть ВЕСЬ код?")) { setCode(""); }}} btnStyle={"clearCodeButton"}>СТЕРЕТЬ КОД</Button>
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@ function App() {
       <footer>
         <div className="footerText">
           <p>© 2026 Jhn</p>
-          <p>JS online Editor v0.5</p>
+          <p>JS online Editor v0.51</p>
           <p><span>Lines now: {code.split("\n").length}</span></p>
         </div>
       </footer>
