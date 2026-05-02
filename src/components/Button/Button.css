@@ -21,17 +21,24 @@
 
 .clearButton{
   /* border: 1px solid #e7eeff; */
-  background-color: #815757;
+  background-color: #816757;
    color: #f4f5f4;
 
 }
-
+.clearCodeButton{
+   background-color: #815757;
+   color: #f4f5f4;
+}
 .runButton:hover{
    color: #ffffff;
    background-color: #546e4e;
 }
 
 .clearButton:hover{
+   color: #ffffff;
+  background-color: #685345;
+}
+.clearCodeButton:hover{
    color: #ffffff;
   background-color: #674040;
 }
@@ -41,6 +48,9 @@
 }
 
 .clearButton:active {
+   background-color: #46382f;
+}
+.clearCodeButton:active {
    background-color: #4d2626;
 }
 
