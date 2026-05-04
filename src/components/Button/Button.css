@@ -12,13 +12,22 @@
   font-size: 1rem;
 }
 
+.miniButton{
+   padding: 8px 10px;
+   font-size: 0.675rem;
+}
+
+.miniButton img{
+   width: 14px;
+   height: 14px;
+}
+
 .runButton{
   /* border: 1px solid #e7eeff; */
   background-color: #6d8467;
    color: #f4f5f4;
  
 }
-
 .clearButton{
   /* border: 1px solid #e7eeff; */
   background-color: #816757;
@@ -29,6 +38,23 @@
    background-color: #815757;
    color: #f4f5f4;
 }
+.CopyButton{
+   background-color: #676f84;
+   color: #f4f5f4;
+}
+.CopyButton p{
+   margin: 0;
+   padding: 0 0 0 6px;
+}
+.InsertButton{
+   background-color: #796784;
+   color: #f4f5f4;
+}
+.InsertButton p{
+   margin: 0;
+   padding: 0 0 0 6px;
+}
+
 .runButton:hover{
    color: #ffffff;
    background-color: #546e4e;
@@ -42,16 +68,30 @@
    color: #ffffff;
   background-color: #674040;
 }
+.CopyButton:hover{
+   background-color: #535969;
+   color: #ffffff;
+}
+.InsertButton:hover{
+   background-color: #675870;
+   color: #ffffff;
+}
+
 
 .runButton:active {
   background-color: #3b5734;
 }
-
 .clearButton:active {
    background-color: #46382f;
 }
 .clearCodeButton:active {
    background-color: #4d2626;
+}
+.CopyButton:active{
+   background-color: #404552;
+}
+.InsertButton:active{
+   background-color: #4a3f50;
 }
 
 .customButton:disabled {

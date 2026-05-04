@@ -6,6 +6,8 @@ import Sandbox from "./components/IFrame/Sandbox";
 import Button from "./components/Button/Button";
 import Console from "./components/Console/Console";
 import logo from "./assets/imgs/logo.PNG";
+import copy from "./assets/imgs/Copy.svg"
+import clbrd from "./assets/imgs/clipboard.svg"
 
 function App() {
   const [code, setCode] = useState(localStorage.getItem("code") || "");
@@ -31,6 +33,14 @@ function App() {
     console.log(logs, isRunning)
   }, [logs, isRunning]);
 
+  const readClipboard = (oldVariable, setVariableToCopy) => {
+    navigator.clipboard.readText().then( value => setVariableToCopy(oldVariable + value)).catch(err => console.log(err))
+  }
+  
+  const wtiteToClipoard = variableToCopy => {
+    navigator.clipboard.writeText(variableToCopy)
+  }
+
   const editorPanel = (
     <div className="panelInner">
       <CodeEditor code={code} setCode={setCode} />
@@ -45,6 +55,10 @@ function App() {
           <Button onClick={() => setIsRunning(true)} btnStyle={"runButton"}>ЗАПУСТИТЬ</Button>
           <Button onClick={() => setLogs([])} btnStyle={"clearButton"}>ОЧИСТИТЬ</Button>
           <Button onClick={() => { if (window.confirm("Вы уверены, что хотите стереть ВЕСЬ код?")) { setCode(""); }}} btnStyle={"clearCodeButton"}>СТЕРЕТЬ КОД</Button>
+        </div>
+        <div className="consoleBlockButtons"> 
+          <Button onClick={() => wtiteToClipoard(code)} btnStyle={"miniButton CopyButton"}><img src={copy} alt="" /> <p>КОПИРОВАТЬ КОД</p> </Button>
+          <Button onClick={() => readClipboard(code, setCode)} btnStyle={"miniButton InsertButton"}><img src={clbrd} alt="" /> <p>ВСТАВИТЬ КОД</p> </Button>
         </div>
       </div>
     </div>
@@ -91,7 +105,7 @@ function App() {
       <footer>
         <div className="footerText">
           <p>© 2026 Jhn</p>
-          <p>JS online Editor v0.51</p>
+          <p>JS online Editor v0.6</p>
           <p><span>Lines now: {code.split("\n").length}</span></p>
         </div>
       </footer>
