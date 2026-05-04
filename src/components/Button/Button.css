@@ -23,13 +23,11 @@
 }
 
 .runButton{
-  /* border: 1px solid #e7eeff; */
   background-color: #6d8467;
    color: #f4f5f4;
  
 }
 .clearButton{
-  /* border: 1px solid #e7eeff; */
   background-color: #816757;
    color: #f4f5f4;
 
@@ -97,4 +95,11 @@
 .customButton:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+@media (max-width: 525px) {
+    .miniButton img{
+      width: 10px;
+      height: 10px;
+   }
 }
