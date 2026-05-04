@@ -7,7 +7,7 @@ import Button from "./components/Button/Button";
 import Console from "./components/Console/Console";
 import logo from "./assets/imgs/logo.PNG";
 import copy from "./assets/imgs/Copy.svg"
-import clbrd from "./assets/imgs/clipboard.svg"
+import clbrd from "./assets/imgs/Clipboard.svg"
 
 function App() {
   const [code, setCode] = useState(localStorage.getItem("code") || "");
