@@ -1,13 +1,60 @@
+import { useState, useEffect, useRef } from 'react';
 import './CodeEditor.css'
 import Editor from "@monaco-editor/react";
 
 function CodeEditor({code, setCode}) {
 
   const remToPx = (rem) => rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+  
+  const [editor, setEditor] = useState(null)
+  const lastTouchY = useRef(0)
 
+  useEffect(() => {
+    if(!editor) return
+
+    const node = editor.getDomNode()
+    if(!node) return
+
+    const handleTouchStart = (event) => {
+      lastTouchY.current = event.touches[0].clientY
+    }
+
+    const handleTouchMove = (event) => {
+      const currentY = event.touches[0].clientY
+
+      const deltaY = lastTouchY.current - currentY
+      const scrollingDown = deltaY > 0
+      const scrollingUp = deltaY < 0
+
+      lastTouchY.current = currentY
+
+      const scrollTop = editor.getScrollTop()
+      const scrollHeight = editor.getScrollHeight()
+      const visibleHeight = editor.getLayoutInfo().height
+
+      const atTop = scrollTop <= 0
+      const atBottom = scrollTop + visibleHeight >= scrollHeight - 1
+
+      if((scrollingUp && atTop) || (scrollingDown && atBottom)){
+        window.scrollBy({
+          top: deltaY,
+          behavior: "auto",
+        })
+      } 
+    }
+
+    node.addEventListener("touchstart", handleTouchStart, { passive: true });
+    node.addEventListener("touchmove", handleTouchMove, { passive: true });
+
+    return () => {
+      node.removeEventListener("touchstart", handleTouchStart);
+      node.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [editor] )
   return (
     <div className='codeEditorWindow'>
       <Editor
+      onMount={setEditor}
       beforeMount={(monaco) => {
         monaco.editor.defineTheme("my-theme", {
           base: "vs-dark",
