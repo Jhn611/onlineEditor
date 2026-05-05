@@ -3,6 +3,7 @@
     width: 100%;
     border-radius: 8px;
     overflow: hidden;
+    touch-action: pan-y;
 }
 
 @media (max-width: 525px) {

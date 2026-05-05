@@ -39,6 +39,9 @@ function CodeEditor({code, setCode}) {
         fontSize: remToPx(window.innerWidth <= 525 ? 1.35 : 1.125),
         minimap: { enabled: false },
         scrollBeyondLastLine: false,
+        scrollbar: {
+          alwaysConsumeMouseWheel: false,
+        },
         fixedOverflowWidgets: true,
         automaticLayout: true,
         tabSize: 2,
@@ -48,9 +51,6 @@ function CodeEditor({code, setCode}) {
         lineNumbers: "on",
         padding: {
           top: 24,
-        },
-        scrollbar: {
-          alwaysConsumeMouseWheel: false,
         },
       }}
     />
