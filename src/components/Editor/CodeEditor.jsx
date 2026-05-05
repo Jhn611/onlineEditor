@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import './CodeEditor.css'
 import Editor from "@monaco-editor/react";
 
-function CodeEditor({code, setCode}) {
+function CodeEditor({code, setCode, isMobile}) {
 
   const remToPx = (rem) => rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
   
@@ -10,6 +10,7 @@ function CodeEditor({code, setCode}) {
   const lastTouchY = useRef(0)
 
   useEffect(() => {
+    if(!isMobile) return
     if(!editor) return
 
     const node = editor.getDomNode()
@@ -54,7 +55,7 @@ function CodeEditor({code, setCode}) {
   return (
     <div className='codeEditorWindow'>
       <Editor
-      onMount={setEditor}
+      onMount={(editor) => setEditor(editor)}
       beforeMount={(monaco) => {
         monaco.editor.defineTheme("my-theme", {
           base: "vs-dark",
@@ -87,7 +88,7 @@ function CodeEditor({code, setCode}) {
         minimap: { enabled: false },
         scrollBeyondLastLine: false,
         scrollbar: {
-          alwaysConsumeMouseWheel: false,
+          alwaysConsumeMouseWheel: isMobile ? false : true,
         },
         fixedOverflowWidgets: true,
         automaticLayout: true,

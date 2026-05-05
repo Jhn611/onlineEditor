@@ -29,6 +29,12 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
             console.warn = (...args) => send("warn", args);
             console.error = (...args) => send("error", args);
 
+            let finished = false;
+            const finish = () => {
+              if (finished) return;
+              finished = true;
+              send("finish", ["Execution finished"]);
+            };
             let hasError = false;
             window.onerror = (message) => {
               if (hasError) return;
@@ -36,15 +42,58 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
               send("error", [message]);
             };
 
+            const originalSetTimeout = window.setTimeout;
+            const originalClearTimeout = window.clearTimeout;
+            let pendingTimers = 0;
+            const activeTimers = new Set();
+
+            const tryFinish = () => {
+              if(pendingTimers === 0){
+                finish();
+              }  
+            };
+
+            window.setTimeout = (callback, delay, ...args) => {
+              pendingTimers++;
+              const id = originalSetTimeout(() => {
+                  activeTimers.delete(id);
+                  try{
+                    callback(...args);
+                  } catch(error){
+                   if (hasError) return;
+                   hasError = true;
+                   send("error", [error.message]);
+                  } finally {
+                   pendingTimers--;
+                   tryFinish();
+                  }
+                }, delay);
+
+              activeTimers.add(id);
+              return id;
+            };
+
+            window.clearTimeout = (id) => {
+              if(activeTimers.has(id)){
+                activeTimers.delete(id);
+                pendingTimers--;
+              }
+              originalClearTimeout(id);
+              tryFinish();
+            }
+
             window.addEventListener("message", (event) => {
               if (!event.data || event.data.type !== "run") return;
 
               try {
                 new Function(event.data.code)();
-                send("finish", ["Execution finished"]);
+                if(pendingTimers === 0){
+                  finish();
+                }
               } catch (error) {    
                 send("error", [error.message]);       
-                send("finish", ["Execution finished"]);}
+                finish();
+              }
             });
           </script>
         </body>
@@ -53,6 +102,7 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
 
     iframeRef.current = iframe;
     document.body.appendChild(iframe);
+
     const handleObject = (obj, level) => {
       let thisLevelString = ''
       for(let key in obj){  
@@ -62,6 +112,7 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
       }
       return thisLevelString
     }
+
     const handleMessage = (event) => {
       if (event.source !== iframe.contentWindow) return;
       if (!event.data || event.data.source !== "sandbox") return;
@@ -74,7 +125,10 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
       onLog?.({
         type: event.data.level,
         text: event.data.args.map((i) => {
-          if(Array.isArray(i)){
+          if (i === null) {
+            return "null"
+          }
+          else if(Array.isArray(i)){
             return '[' + handleObject(i, '') + ']'
           }
           else if(typeof(i) == 'object'){
@@ -96,7 +150,7 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
 
       onFinish?.();
       iframe.remove();
-    }, 3000);
+    }, 4500);
 
     iframe.onload = () => {
       iframe.contentWindow.postMessage(

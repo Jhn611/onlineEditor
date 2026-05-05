@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Group, Panel, Separator } from "react-resizable-panels";
 import "./App.css";
 import CodeEditor from "./components/Editor/CodeEditor";
@@ -39,6 +39,9 @@ function App() {
   useEffect(() => {
     console.log(logs, isRunning)
   }, [logs, isRunning]);
+
+  const handleLog = useCallback((log) => setLogs((prev) => [...prev, log]), [])
+  const handleFinish = useCallback(() => setIsRunning(false), [])
 
   const readClipboard = (oldVariable, setVariableToCopy) => {
     navigator.clipboard.readText().then( value => setVariableToCopy(oldVariable + value)).catch(err => console.log(err))
@@ -111,20 +114,18 @@ function App() {
       <Sandbox
         code={code}
         shouldRun={isRunning}
-        onLog={(log) => 
-          setLogs((prev) => [...prev, log])
-        }
-        onFinish={() => setIsRunning(false)}
+        onLog={handleLog}
+        onFinish={handleFinish}
       />
 
       <footer>
         <div className="footerText">
           <p>© 2026 Jhn</p>
-          <p>JS online Editor v1.2</p>
+          <p>JS online Editor v1.3</p>
           <p><span>Lines now: {code.split("\n").length}</span></p>
         </div>
         <div className="footerText">
-          <p>Ограничение времени выполнения 3сек./3000мс.</p>
+          <p>Ограничение времени выполнения 4.5сек./4500мс.</p>
           <p>В случае возникновении ошибки(ок) будет выведена только первая.</p>
         </div>
       </footer>
