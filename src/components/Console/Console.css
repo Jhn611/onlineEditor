@@ -22,6 +22,7 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
+  overscroll-behavior-y: auto;
   padding: 12px;
 }
 

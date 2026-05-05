@@ -30,6 +30,16 @@ body{
 
 }
 
+@media (min-width: 2100px) {
+    html{
+      font-size: 22px;
+    }
+}
+@media (min-width: 1800px) {
+    html{
+      font-size: 20px;
+    }
+}
 @media (max-width: 525px) {
     html{
       font-size: 12px;

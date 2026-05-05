@@ -36,7 +36,7 @@ function CodeEditor({code, setCode}) {
       value={code}
       onChange={(value) => setCode(value || "")}
       options={{
-        fontSize: remToPx(1.125),
+        fontSize: remToPx(window.innerWidth <= 525 ? 1.35 : 1.125),
         minimap: { enabled: false },
         scrollBeyondLastLine: false,
         fixedOverflowWidgets: true,
@@ -48,6 +48,9 @@ function CodeEditor({code, setCode}) {
         lineNumbers: "on",
         padding: {
           top: 24,
+        },
+        scrollbar: {
+          alwaysConsumeMouseWheel: false,
         },
       }}
     />

@@ -9,14 +9,21 @@
   border-radius: 4px;
 
   font-family: 'Roboto';
-  font-size: 1rem;
+  font-size: 0.875rem;
+}
+.customButton img{
+   width: 18px;
+   height: 18px;
+}
+.customButton p{
+   margin: 0;
+   padding: 0 0 0 6px;
 }
 
 .miniButton{
    padding: 8px 10px;
    font-size: 0.675rem;
 }
-
 .miniButton img{
    width: 14px;
    height: 14px;
@@ -40,18 +47,11 @@
    background-color: #676f84;
    color: #f4f5f4;
 }
-.CopyButton p{
-   margin: 0;
-   padding: 0 0 0 6px;
-}
 .InsertButton{
    background-color: #796784;
    color: #f4f5f4;
 }
-.InsertButton p{
-   margin: 0;
-   padding: 0 0 0 6px;
-}
+
 
 .runButton:hover{
    color: #ffffff;
@@ -98,6 +98,10 @@
 }
 
 @media (max-width: 525px) {
+   .customButton img{
+      width: 12px;
+      height: 12px;
+   }
     .miniButton img{
       width: 10px;
       height: 10px;
