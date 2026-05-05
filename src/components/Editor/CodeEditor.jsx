@@ -51,7 +51,7 @@ function CodeEditor({code, setCode, isMobile}) {
       node.removeEventListener("touchstart", handleTouchStart);
       node.removeEventListener("touchmove", handleTouchMove);
     };
-  }, [editor] )
+  }, [editor, isMobile] )
   return (
     <div className='codeEditorWindow'>
       <Editor
@@ -84,11 +84,11 @@ function CodeEditor({code, setCode, isMobile}) {
       value={code}
       onChange={(value) => setCode(value || "")}
       options={{
-        fontSize: remToPx(window.innerWidth <= 525 ? 1.35 : 1.125),
+        fontSize: remToPx(isMobile ? 1.35 : 1.125),
         minimap: { enabled: false },
         scrollBeyondLastLine: false,
         scrollbar: {
-          alwaysConsumeMouseWheel: isMobile ? false : true,
+          alwaysConsumeMouseWheel: !isMobile,
         },
         fixedOverflowWidgets: true,
         automaticLayout: true,
