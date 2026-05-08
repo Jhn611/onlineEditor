@@ -46,11 +46,53 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
             const originalClearTimeout = window.clearTimeout;
             let pendingTimers = 0;
             const activeTimers = new Set();
+            let finishCheckId = null;
+
+            const checkFinishCheck = () => {
+              if (finishCheckId !== null) {
+                originalClearTimeout(finishCheckId);
+              }
+
+              finishCheckId = originalSetTimeout(() => {
+                finishCheckId = null;
+
+                if(pendingTimers === 0){
+                  finish();
+                }  
+              }, 0);
+            };
 
             const tryFinish = () => {
               if(pendingTimers === 0){
-                finish();
+                checkFinishCheck();
               }  
+            };
+
+            window.addEventListener("unhandledrejection", (event) => {
+              if (hasError) return;
+              hasError = true;
+              send("error", [event.reason?.message || event.reason]);
+              finish();
+            });
+
+            window.addEventListener("error", (event) => {
+              if (hasError) return;
+              hasError = true;
+              send("error", [event.message]);
+              finish();
+            });
+
+            const runUserCode = (code) => {
+              try {
+                new Function(code)();
+                tryFinish();
+              } catch (error) {    
+                if (!hasError) {
+                  hasError = true;
+                  send("error", [error.message]);       
+                }
+                finish();
+              }
             };
 
             window.setTimeout = (callback, delay, ...args) => {
@@ -84,16 +126,7 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
 
             window.addEventListener("message", (event) => {
               if (!event.data || event.data.type !== "run") return;
-
-              try {
-                new Function(event.data.code)();
-                if(pendingTimers === 0){
-                  finish();
-                }
-              } catch (error) {    
-                send("error", [error.message]);       
-                finish();
-              }
+              runUserCode(event.data.code);
             });
           </script>
         </body>

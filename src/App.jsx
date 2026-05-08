@@ -121,7 +121,7 @@ function App() {
       <footer>
         <div className="footerText">
           <p>© 2026 Jhn</p>
-          <p>JS online Editor v1.31</p>
+          <p>JS online Editor v1.4</p>
           <p><span>Lines now: {code.split("\n").length}</span></p>
         </div>
         <div className="footerText">

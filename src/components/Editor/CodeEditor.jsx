@@ -99,6 +99,7 @@ function CodeEditor({code, setCode, isMobile}) {
         lineNumbers: "on",
         padding: {
           top: 24,
+          bottom: 24,
         },
       }}
     />
