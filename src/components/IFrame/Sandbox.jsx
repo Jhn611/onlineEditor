@@ -139,8 +139,8 @@ function Sandbox({ code, shouldRun, onLog, onFinish }) {
     const handleObject = (obj, level) => {
       let thisLevelString = ''
       for(let key in obj){  
-        if(Array.isArray(obj[key])) return thisLevelString + '\n' + level + `${key}: [` + handleObject(obj[key], level + '  ') + ']'
-        if(typeof(obj[key]) == 'object') return thisLevelString + '\n' + level + `${key}: {` + handleObject(obj[key], level + '  ') + '}'
+        if(Array.isArray(obj[key])) thisLevelString += '\n' + level + `${key}: [` + handleObject(obj[key], level + '  ') + ']'
+        else if(typeof(obj[key]) == 'object') thisLevelString += '\n' + level + `${key}: {` + handleObject(obj[key], level + '  ') + '}'
         else thisLevelString += '\n' + level + `${key}: ${obj[key]}`
       }
       return thisLevelString
